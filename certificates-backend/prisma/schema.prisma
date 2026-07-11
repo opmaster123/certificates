@@ -1,0 +1,129 @@
+// Prisma schema brainstorming for Certificates & Tests
+
+// docker run -d --name certificates -e POSTGRES_USER=dev -e POSTGRES_PASSWORD=dev -p 5433:5432 -v pgdata:/var/lib/postgresql/data postgres:15-alpine
+
+// DATABASE_URL="postgresql://dev:dev@localhost:5433/devuser?schema=public"
+
+// The assessment structure is divided into three tiers based on size, each with corresponding metrics 
+// for question count, CPE credit hours, and test duration. The **Small** tier consists of 10 questions, 
+// awards 2.0 CPE credit hours, and has a test duration of 10 minutes. The **Medium** tier includes 20 questions, 
+// provides 4.0 CPE credit hours, and allows 20 minutes for completion. Finally, the **Large** tier comprises 30 questions, 
+// offers 6.0 CPE credit hours, and has a test duration of 30 minutes. Notably, for all tiers, the test duration in minutes
+// is equal to the number of questions.
+
+datasource db {
+  provider = "postgresql"
+  // Set your database URL in an environment variable for security. Example:
+  // DATABASE_URL="postgresql://dev:dev@localhost:5433/devuser?schema=public"
+  // url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id                   String                @id @default(ulid())
+  email                String                @unique
+  password             String
+  firstName            String
+  lastName             String
+  avatar               String?
+  phoneNumber          String?
+  birthDate            DateTime?
+  jobTitle             String?
+  company              String?
+  experienceYears      Int?
+  totalCpeHours        Float                 @default(0.0)
+  totalMoneyPaid       Float                 @default(0.0)
+  earnedCertificates   UserCertificate[]
+  activeBundle         ActiveBundle?
+  activeIndividualTest ActiveIndividualTest?
+  createdAt            DateTime              @default(now())
+  updatedAt            DateTime              @updatedAt
+}
+
+model Test {
+  id           String        @id @default(ulid())
+  arabicTitle  String
+  englishTitle String
+  cert         CertType
+  desc         String
+  questions    Question[]
+  variants     TestVariant[]
+}
+
+enum CertType {
+  CIA
+  CMA
+  CPA
+  CFE
+  CISA
+}
+
+enum TierName {
+  SMALL
+  MEDIUM
+  LARGE
+}
+
+model TestVariant {
+  id                    String                 @id @default(ulid())
+  testId                String
+  test                  Test                   @relation(fields: [testId], references: [id], onDelete: Cascade)
+  tierName              TierName
+  userCertificates      UserCertificate[] // Relation to users who earned a certificate for this variant
+  activeBundleItems     ActiveBundleItem[]
+  activeIndividualTests ActiveIndividualTest[]
+}
+
+model Question {
+  id      String @id @default(ulid())
+  text    String
+  options Json
+  testId  String
+  test    Test   @relation(fields: [testId], references: [id], onDelete: Cascade)
+}
+
+model UserCertificate {
+  id                String      @id @default(ulid())
+  certificateNumber String      @unique // The public unique short code
+  userId            String
+  user              User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  testVariantId     String
+  testVariant       TestVariant @relation(fields: [testVariantId], references: [id], onDelete: Cascade)
+  issuedAt          DateTime
+  expiryDate        DateTime
+
+  // A user can earn only one certificate per test variant
+  @@unique([userId, testVariantId])
+}
+
+model ActiveBundle {
+  id        String             @id @default(ulid())
+  userId    String             @unique
+  user      User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt DateTime           @default(now())
+  items     ActiveBundleItem[]
+}
+
+model ActiveBundleItem {
+  id            String       @id @default(ulid())
+  bundleId      String
+  bundle        ActiveBundle @relation(fields: [bundleId], references: [id], onDelete: Cascade)
+  testVariantId String
+  testVariant   TestVariant  @relation(fields: [testVariantId], references: [id], onDelete: Cascade)
+  finished      Boolean      @default(false)
+  finishedAt    DateTime?
+
+  @@unique([bundleId, testVariantId])
+}
+
+model ActiveIndividualTest {
+  id            String      @id @default(ulid())
+  userId        String      @unique
+  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  testVariantId String
+  testVariant   TestVariant @relation(fields: [testVariantId], references: [id], onDelete: Cascade)
+  createdAt     DateTime    @default(now())
+}
