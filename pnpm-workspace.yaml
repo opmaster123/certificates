@@ -1,0 +1,12 @@
+packages:
+  - '.'
+trustLockfile: true
+allowBuilds:
+  '@prisma/engines': true
+  '@scarf/scarf': true
+  '@swc/core': true
+  bcrypt: true
+  core-js: true
+  esbuild: true
+  prisma: true
+  unrs-resolver: true
