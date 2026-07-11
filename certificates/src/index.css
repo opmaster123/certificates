@@ -1,0 +1,285 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Tajawal:wght@300;400;500;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 20% 98%;
+    --foreground: 213 39% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 213 39% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 213 39% 15%;
+
+    --primary: 213 53% 24%;
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 160 59% 45%;
+    --secondary-foreground: 0 0% 100%;
+
+    --accent: 38 92% 50%;
+    --accent-foreground: 213 39% 15%;
+
+    --muted: 210 20% 95%;
+    --muted-foreground: 215 16% 47%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --border: 214 20% 90%;
+    --input: 214 20% 90%;
+    --ring: 213 53% 24%;
+
+    --radius: 0.625rem;
+
+    --sidebar-background: 213 53% 18%;
+    --sidebar-foreground: 210 20% 92%;
+    --sidebar-primary: 38 92% 50%;
+    --sidebar-primary-foreground: 213 39% 15%;
+    --sidebar-accent: 213 53% 24%;
+    --sidebar-accent-foreground: 210 20% 92%;
+    --sidebar-border: 213 40% 28%;
+    --sidebar-ring: 38 92% 50%;
+
+    --chart-1: 213 53% 24%;
+    --chart-2: 160 59% 45%;
+    --chart-3: 38 92% 50%;
+    --chart-4: 142 71% 45%;
+    --chart-5: 0 84% 60%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(213, 53%, 24%), hsl(213, 53%, 35%));
+    --gradient-secondary: linear-gradient(135deg, hsl(160, 59%, 45%), hsl(160, 59%, 55%));
+    --gradient-accent: linear-gradient(135deg, hsl(38, 92%, 50%), hsl(38, 92%, 60%));
+    --gradient-hero: linear-gradient(135deg, hsl(213, 53%, 12%), hsl(213, 53%, 24%), hsl(213, 40%, 30%));
+  }
+
+  .dark {
+    --background: 213 39% 8%;
+    --foreground: 210 20% 95%;
+    --card: 213 39% 12%;
+    --card-foreground: 210 20% 95%;
+    --popover: 213 39% 12%;
+    --popover-foreground: 210 20% 95%;
+    --primary: 210 40% 70%;
+    --primary-foreground: 213 39% 10%;
+    --secondary: 160 59% 40%;
+    --secondary-foreground: 0 0% 100%;
+    --accent: 38 92% 55%;
+    --accent-foreground: 213 39% 10%;
+    --muted: 213 30% 18%;
+    --muted-foreground: 215 16% 60%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 210 40% 98%;
+    --success: 142 71% 35%;
+    --success-foreground: 0 0% 100%;
+    --border: 213 30% 22%;
+    --input: 213 30% 22%;
+    --ring: 210 40% 70%;
+    --sidebar-background: 213 39% 6%;
+    --sidebar-foreground: 210 20% 85%;
+    --sidebar-primary: 38 92% 55%;
+    --sidebar-primary-foreground: 213 39% 10%;
+    --sidebar-accent: 213 39% 15%;
+    --sidebar-accent-foreground: 210 20% 85%;
+    --sidebar-border: 213 30% 18%;
+    --sidebar-ring: 38 92% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    direction: rtl;
+  }
+
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer utilities {
+  .gradient-primary {
+    background: var(--gradient-primary);
+  }
+
+  .gradient-secondary {
+    background: var(--gradient-secondary);
+  }
+
+  .gradient-accent {
+    background: var(--gradient-accent);
+  }
+
+  .gradient-hero {
+    background: var(--gradient-hero);
+  }
+
+  .card-hover {
+    @apply transition-all duration-200 ease-out;
+  }
+
+  .card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px -12px hsl(213 53% 24% / 0.2);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, hsl(38, 92%, 50%), hsl(38, 92%, 65%));
+  }
+}
+
+/* ==========================================================================
+   Khutta Driver.js Interactive Tour & Walkthrough Styles (RTL Arabic)
+   ========================================================================== */
+
+.driver-popover.khutta-driver-popover {
+  direction: rtl !important;
+  text-align: right !important;
+  font-family: 'Tajawal', 'IBM Plex Sans Arabic', sans-serif !important;
+  border-radius: 16px !important;
+  background-color: hsl(var(--card)) !important;
+  color: hsl(var(--card-foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+  box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.25), 0 0 0 1px hsl(var(--border)) !important;
+  padding: 20px !important;
+  min-width: 290px !important;
+  max-width: 380px !important;
+  box-sizing: border-box !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-title {
+  font-family: 'Tajawal', sans-serif !important;
+  font-weight: 800 !important;
+  font-size: 1.05rem !important;
+  line-height: 1.5 !important;
+  color: hsl(var(--foreground)) !important;
+  margin-bottom: 8px !important;
+  padding-left: 24px !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-description {
+  font-family: 'IBM Plex Sans Arabic', sans-serif !important;
+  font-size: 0.85rem !important;
+  line-height: 1.65 !important;
+  color: hsl(var(--muted-foreground)) !important;
+  margin-bottom: 16px !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-footer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-direction: row-reverse !important;
+  margin-top: 14px !important;
+  padding-top: 12px !important;
+  border-top: 1px solid hsl(var(--border) / 0.6) !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-progress-text {
+  font-family: 'IBM Plex Sans Arabic', sans-serif !important;
+  font-size: 0.75rem !important;
+  color: hsl(var(--muted-foreground)) !important;
+  font-weight: 600 !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-navigation-btns {
+  display: flex !important;
+  gap: 8px !important;
+  align-items: center !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-footer-btn {
+  border-radius: 10px !important;
+  padding: 6px 14px !important;
+  font-size: 0.8rem !important;
+  font-weight: 700 !important;
+  font-family: 'Tajawal', sans-serif !important;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-sizing: border-box !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-next-btn {
+  background: var(--gradient-primary) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border: 1px solid transparent !important;
+  box-shadow: 0 4px 12px -2px hsl(var(--primary) / 0.35) !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-next-btn:hover {
+  filter: brightness(1.1) !important;
+  transform: translateY(-1px) !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-prev-btn {
+  background: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border: 1px solid hsl(var(--border)) !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-prev-btn:hover {
+  background: hsl(var(--muted)) !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-close-btn {
+  position: absolute !important;
+  top: 14px !important;
+  left: 14px !important;
+  right: auto !important;
+  color: hsl(var(--muted-foreground)) !important;
+  background: transparent !important;
+  border: none !important;
+  font-size: 1.1rem !important;
+  width: 24px !important;
+  height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  border-radius: 6px !important;
+  transition: all 0.2s ease !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-close-btn:hover {
+  color: hsl(var(--foreground)) !important;
+  background: hsl(var(--muted)) !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-arrow {
+  border-color: hsl(var(--card)) !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-arrow-side-left {
+  border-left-color: hsl(var(--card)) !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-arrow-side-right {
+  border-right-color: hsl(var(--card)) !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-arrow-side-top {
+  border-top-color: hsl(var(--card)) !important;
+}
+
+.driver-popover.khutta-driver-popover .driver-popover-arrow-side-bottom {
+  border-bottom-color: hsl(var(--card)) !important;
+}
